@@ -35,18 +35,16 @@ Follow these steps to set up the environment and execute the assignment scripts.
    mongosh --version
    ```
 
-4. *(Optional)* **MongoDB Compass** for GUI verification.
+4. **MongoDB Compass** for GUI verification.
 
 ---
 
 ## Step 1 — Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
-```
-Replace `<repository-url>` and `<repository-folder>` with your repo details.
+git clone https://github.com/PLP-MERN-Stack-Development/mongodb-data-layer-fundamentals-and-advanced-techniques-MauriceOS.git
 
+```
 ---
 
 ## Step 2 — Populate the Database (Task 1 & Initial Data)
@@ -54,17 +52,17 @@ Replace `<repository-url>` and `<repository-folder>` with your repo details.
 Run the `insert_books.js` script using Node.js to create the `plp_bookstore` database, the `books` collection, and insert the initial 12 documents.
 
 ```bash
-# Ensure your MongoDB server is running
+# Ensure MongoDB server is running
 node insert_books.js
 ```
 
-**Expected output (single-line):** `"12 books were successfully inserted into the database"`
+**Expected output as shown in the screenshots(single-line):** `"12 books were successfully inserted into the database"`
 
 ---
 
 ## Step 3 — Run Queries and Advanced Tasks (Tasks 2–5)
 
-The `queries.js` file contains all required CRUD operations, advanced queries, aggregation pipelines, and indexing commands. Execute it from the MongoDB Shell:
+The `queries.js` file contains all required CRUD operations, advanced queries, aggregation pipelines, and indexing commands. Execute it from the MongoDB Shell or vscode terminal:
 
 ```bash
 # 1. Launch the MongoDB Shell
@@ -83,7 +81,7 @@ The shell will display the results for each query, update, delete, and index cre
 
 ## Step 4 — Verification
 
-You can verify results using **MongoDB Compass** or **MongoDB Atlas**:
+You can verify results using **MongoDB Compass** as shown
 
 - **Documents Tab**
   - The `books` collection should contain **11 documents** (one document removed by the script).
@@ -93,17 +91,6 @@ You can verify results using **MongoDB Compass** or **MongoDB Atlas**:
   - You should see at least two new indexes created by the script:
     - An index on `title`
     - A compound index on `author` and `published_year`
-
----
-
-## Repository Structure
-
-```
-.
-├── insert_books.js   # Script to populate the database with initial 12 documents
-├── queries.js        # CRUD operations, aggregations, and index commands
-└── README.md         # This file
-```
 
 ---
 
@@ -123,18 +110,12 @@ You can verify results using **MongoDB Compass** or **MongoDB Atlas**:
   - Confirm you executed `use plp_bookstore` before `load('queries.js')`.
   - Ensure `queries.js` path is correct relative to where you launched `mongosh`.
 
-- **Using MongoDB Atlas**
-  - Replace the connection string in any script that uses the local URI:
-    ```js
-    // Example: replace with your Atlas connection string
-    const uri = 'mongodb+srv://<user>:<password>@cluster0.example.mongodb.net/plp_bookstore?retryWrites=true&w=majority';
-    ```
 
 ---
 
 ## Notes
 
-- Scripts default to `mongodb://127.0.0.1:27017`. Update connection strings in `insert_books.js`/`queries.js` if using Atlas.
+- Scripts default to `mongodb://127.0.0.1:27017'
 - Ensure MongoDB server is running before executing `node insert_books.js` or loading `queries.js` in `mongosh`.
 - This README documents **all steps**: prerequisites, cloning, population, running the queries, verification, repository layout, and troubleshooting.
 

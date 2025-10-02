@@ -27,9 +27,9 @@ db.books.updateOne(
 db.books.deleteOne({ title: "Wuthering Heights" });
 
 
-// =================================================================
+// ===================================
 // Task 3: Advanced Queries
-// =================================================================
+// =========================================
 
 // 1. Find books that are both in stock AND published after 2010
 // NOTE: Based on your inserted data, you might need to insert a book published after 2010
@@ -54,9 +54,9 @@ db.books.find().limit(5).skip(0);
 db.books.find().limit(5).skip(5);
 
 
-// =================================================================
+// =================================================
 // Task 4: Aggregation Pipeline
-// =================================================================
+// ====================================
 
 // 1. Calculate the average price of books by genre
 db.books.aggregate([
@@ -101,9 +101,9 @@ db.books.aggregate([
 ]);
 
 
-// =================================================================
+// ===========================
 // Task 5: Indexing
-// =================================================================
+// ==================================================
 
 // 1. Create an index on the title field for faster searches
 db.books.createIndex({ title: 1 });
@@ -111,7 +111,7 @@ db.books.createIndex({ title: 1 });
 // 2. Create a compound index on author and published_year
 db.books.createIndex({ author: 1, published_year: -1 }); // 1 for ascending, -1 for descending
 
-// 3. Use the explain() method to demonstrate the performance improvement with your indexes
+// 3. Use the explain() method to demonstrate the performance improvement with my indexes
 // BEFORE INDEXING (Run the explain() before creating indexes to see a COLLECTION SCAN)
 // db.books.find({ title: "1984" }).explain("executionStats");
 // AFTER INDEXING (Run the explain() after creating indexes to see an IXSCAN)
