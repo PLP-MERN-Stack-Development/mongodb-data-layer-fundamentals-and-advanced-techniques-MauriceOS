@@ -1,59 +1,141 @@
-# MongoDB Fundamentals - Week 1
+# Week 1: MongoDB – Data Layer Fundamentals Assignment
 
-## Setup Instructions
+This repository contains the solution for the **MongoDB Data Layer Fundamentals and Advanced Techniques** assignment.
 
-Before you begin this assignment, please make sure you have the following installed:
+The solution consists of two primary files:
 
-1. **MongoDB Community Edition** - [Installation Guide](https://www.mongodb.com/docs/manual/administration/install-community/)
-2. **MongoDB Shell (mongosh)** - This is included with MongoDB Community Edition
-3. **Node.js** - [Download here](https://nodejs.org/)
+- **`insert_books.js`** — Node.js script to populate the database.  
+- **`queries.js`** — Contains all required MongoDB CRUD operations, aggregation pipelines, and indexing commands.
 
-### Node.js Package Setup
+---
 
-Once you have Node.js installed, run the following commands in your assignment directory:
+## Setup and Execution Instructions
+
+Follow these steps to set up the environment and execute the assignment scripts.
+
+### Prerequisites
+
+1. **Node.js** and **npm** installed.  
+   Verify:
+   ```bash
+   node -v
+   npm -v
+   ```
+
+2. **MongoDB Community Server** (local) or a **MongoDB Atlas** cluster.  
+   - Default scripts connect to `mongodb://127.0.0.1:27017`.  
+   - To run local server manually:
+     ```bash
+     mongod --dbpath ~/data/db
+     ```
+
+3. **MongoDB Shell (`mongosh`)** installed.  
+   Verify:
+   ```bash
+   mongosh --version
+   ```
+
+4. *(Optional)* **MongoDB Compass** for GUI verification.
+
+---
+
+## Step 1 — Clone the Repository
 
 ```bash
-# Initialize a package.json file
-npm init -y
+git clone <repository-url>
+cd <repository-folder>
+```
+Replace `<repository-url>` and `<repository-folder>` with your repo details.
 
-# Install the MongoDB Node.js driver
-npm install mongodb
+---
+
+## Step 2 — Populate the Database (Task 1 & Initial Data)
+
+Run the `insert_books.js` script using Node.js to create the `plp_bookstore` database, the `books` collection, and insert the initial 12 documents.
+
+```bash
+# Ensure your MongoDB server is running
+node insert_books.js
 ```
 
-## Assignment Overview
+**Expected output (single-line):** `"12 books were successfully inserted into the database"`
 
-This week focuses on MongoDB fundamentals including:
-- Creating and connecting to MongoDB databases
-- CRUD operations (Create, Read, Update, Delete)
-- MongoDB queries and filters
-- Aggregation pipelines
-- Indexing for performance
+---
 
-## Submission
+## Step 3 — Run Queries and Advanced Tasks (Tasks 2–5)
 
-Complete all the exercises in this assignment and push your code to GitHub using the provided GitHub Classroom link.
+The `queries.js` file contains all required CRUD operations, advanced queries, aggregation pipelines, and indexing commands. Execute it from the MongoDB Shell:
 
-## Getting Started
+```bash
+# 1. Launch the MongoDB Shell
+mongosh
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install MongoDB locally or set up a MongoDB Atlas account
-4. Run the provided `insert_books.js` script to populate your database
-5. Complete the tasks in the assignment document
+# 2. Switch to the assignment database
+use plp_bookstore
 
-## Files Included
+# 3. Load and execute the queries script
+load('queries.js')
+```
 
-- `Week1-Assignment.md`: Detailed assignment instructions
-- `insert_books.js`: Script to populate your MongoDB database with sample book data
+The shell will display the results for each query, update, delete, and index creation executed by the script.
 
-## Requirements
+---
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- MongoDB Shell (mongosh) or MongoDB Compass
+## Step 4 — Verification
 
-## Resources
+You can verify results using **MongoDB Compass** or **MongoDB Atlas**:
 
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [MongoDB University](https://university.mongodb.com/)
-- [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/) 
+- **Documents Tab**
+  - The `books` collection should contain **11 documents** (one document removed by the script).
+  - The price of *"1984"* should be updated to the value set by the `queries.js` updates.
+
+- **Indexes Tab**
+  - You should see at least two new indexes created by the script:
+    - An index on `title`
+    - A compound index on `author` and `published_year`
+
+---
+
+## Repository Structure
+
+```
+.
+├── insert_books.js   # Script to populate the database with initial 12 documents
+├── queries.js        # CRUD operations, aggregations, and index commands
+└── README.md         # This file
+```
+
+---
+
+## Troubleshooting
+
+- **MongoDB server not running**
+  ```bash
+  # Start the server (example)
+  mongod --dbpath ~/data/db
+  ```
+
+- **`mongosh` not found**
+  - Reinstall MongoDB Shell and ensure `mongosh` is in your PATH.
+  - Verify with: `mongosh --version`
+
+- **`load('queries.js')` produces no output**
+  - Confirm you executed `use plp_bookstore` before `load('queries.js')`.
+  - Ensure `queries.js` path is correct relative to where you launched `mongosh`.
+
+- **Using MongoDB Atlas**
+  - Replace the connection string in any script that uses the local URI:
+    ```js
+    // Example: replace with your Atlas connection string
+    const uri = 'mongodb+srv://<user>:<password>@cluster0.example.mongodb.net/plp_bookstore?retryWrites=true&w=majority';
+    ```
+
+---
+
+## Notes
+
+- Scripts default to `mongodb://127.0.0.1:27017`. Update connection strings in `insert_books.js`/`queries.js` if using Atlas.
+- Ensure MongoDB server is running before executing `node insert_books.js` or loading `queries.js` in `mongosh`.
+- This README documents **all steps**: prerequisites, cloning, population, running the queries, verification, repository layout, and troubleshooting.
+
+---
